@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-dd
+# -*- coding: utf-8 -*-
 import tkinter as tk
 import tkinter.messagebox
 import tkinter.simpledialog
