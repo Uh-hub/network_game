@@ -19,7 +19,7 @@ def name_select():
     global your_name
     your_name = str(result)
     my_name.set(your_name)
-    if your_name.encode().isalpha() == False:
+    if your_name.encode('utf-8').isalnum() == False:
         tk.messagebox.showerror(
             title="ERROR!", message="영어로 닉네임을 입력하세요."
         )
@@ -55,12 +55,12 @@ def char_select():
     print("img_a:", img_a)
     char_image = f'$image_char: {your_name}: {img_a}'
     print(char_image)
-    client.send(char_image.encode())
+    client.send(char_image.encode('utf-8'))
 
 
-def chat_send():
+def chat_send(event=None):
     message = f'message: {your_name}: {chat_input.get()}'
-    client.send(message.encode('ascii'))
+    client.send(message.encode('utf-8'))
     chat_input.delete(0, 'end')
 
 def game_logic(you, opponent):
@@ -129,7 +129,7 @@ def choice(arg):
 
     if client:
         dataToSend = "Game_Round" + str(game_round) + your_choice
-        client.send(dataToSend.encode())
+        client.send(dataToSend.encode('utf-8'))
         enable_disable_buttons("disable")
 
 
@@ -138,7 +138,7 @@ def connect_to_server(name):
     try:
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client.connect((HOST_ADDR, HOST_PORT))
-        client.send(name.encode())  # 연결 후 서버에게 메세지 보냄
+        client.send(name.encode('utf-8'))  # 연결 후 서버에게 메세지 보냄
 
         # 서버로부터 메세지를 계속 수신하기 위해 스레드 시작
         openFrame(frame2)  ##추가함
@@ -158,7 +158,7 @@ def connect_to_server(name):
         )
 
 def game_start():
-    client.send("$entered_game".encode())
+    client.send("$entered_game".encode('utf-8'))
     openFrame(frame4)
 
 def receive_message_from_server(sck, m): #매칭
@@ -235,17 +235,17 @@ def receive_message_from_server(sck, m): #매칭
             round_result = " "
             if who_wins == "you":
                 your_score = your_score + 1
-                round_result = "이겼습니다."
+                round_result = "WIN"
                 # final_result = "(당신이 선공입니다!!!)"
                 # color = "green"
             elif who_wins == "opponent":
                 opponent_score = opponent_score + 1
-                round_result = "졌습니다."
+                round_result = "LOSE"
                 # final_result = "(당신이 방어입니다!!!)"
                 # color = "red
 
             else:
-                round_result = "무승부"
+                round_result = "DRAW"
                 # final_result = "(무승부!!!)"
                 # color = "black"
                 # lbl_opponent_choice["text"] = "상대방의 선택: " + opponent_choice
@@ -298,7 +298,7 @@ def receive_message_from_server(sck, m): #매칭
 """
 def gameready():
     ready_message="start"
-    client.send(ready_message.encode())
+    client.send(ready_message.encode('utf-8'))
     enable_disable_buttons("disable")
 def gamestart():
     sleep(1)
@@ -407,6 +407,7 @@ chat_space.place(x= 460, y=30)
 chat_input = tk.Entry(frame3)
 # chat_input.bind("<Return>",chat_send)
 chat_input.place(x = 460, y = 500,width=155,height=22)
+chat_input.bind("<Return>",chat_send )
 
 #전송 버튼
 chat_br = tk.Button(frame3, text=" 전송 ", command = chat_send)
@@ -428,7 +429,7 @@ opponent_score = 0
 
 # 네트워크 클라이언트
 client = None
-HOST_ADDR = "192.168.56.1"
+HOST_ADDR = "192.168.231.1"
 # HOST_ADDR = "localhost"
 HOST_PORT = 8080
 
@@ -514,7 +515,7 @@ lbl_your_choice.pack()
 lbl_opponent_choice = tk.Label(round_frame, text="상대방 선택: " + "None",bg='white')
 lbl_opponent_choice.pack()
 lbl_result = tk.Label(
-    round_frame, text=" ", foreground="black", font="Helvetica 13 bold",bg='white'
+    round_frame, text=" ", foreground="green", font="Helvetica 13 bold",bg='white'
 )
 lbl_result.pack()
 round_frame.pack(side=tk.TOP)
