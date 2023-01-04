@@ -1,4 +1,4 @@
-# -*- coding: euc-kr -*-
+# -*- coding: utf-8 -*-
 import tkinter as tk
 from tkinter import PhotoImage
 from tkinter import messagebox
@@ -6,7 +6,7 @@ import socket
 from time import sleep
 import threading
 
-# ¸ÞÀÎ °ÔÀÓ Ã¢
+# ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¢
 window_main = tk.Tk()
 window_main.title("Game Client")
 your_name = ""
@@ -19,7 +19,7 @@ TOTAL_NO_OF_ROUNDS = 5
 your_score = 0
 opponent_score = 0
 
-# ³×Æ®¿öÅ© Å¬¶óÀÌ¾ðÆ®
+# ï¿½ï¿½Æ®ï¿½ï¿½Å© Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®
 client = None
 HOST_ADDR = "192.168.16.1"
 HOST_PORT = 8080
@@ -30,7 +30,7 @@ lbl_name = tk.Label(top_welcome_frame, text="Name:")
 lbl_name.pack(side=tk.LEFT)
 ent_name = tk.Entry(top_welcome_frame)
 ent_name.pack(side=tk.LEFT)
-btn_connect = tk.Button(top_welcome_frame, text="ÀÔÀå", command=lambda: connect())
+btn_connect = tk.Button(top_welcome_frame, text="ï¿½ï¿½ï¿½ï¿½", command=lambda: connect())
 btn_connect.pack(side=tk.LEFT)
 top_welcome_frame.pack(side=tk.TOP)
 
@@ -54,9 +54,9 @@ top_left_frame = tk.Frame(
     top_frame, highlightbackground="green", highlightcolor="green", highlightthickness=1
 )
 lbl_your_name = tk.Label(
-    top_left_frame, text="´ç½ÅÀÇ ´Ð³×ÀÓ: " + your_name, font="Helvetica 13 bold"
+    top_left_frame, text="ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½: " + your_name, font="Helvetica 13 bold"
 )
-lbl_opponent_name = tk.Label(top_left_frame, text="»ó´ë¹æ ´Ð³×ÀÓ: " + opponent_name)
+lbl_opponent_name = tk.Label(top_left_frame, text="ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½: " + opponent_name)
 lbl_your_name.grid(row=0, column=0, padx=5, pady=8)
 lbl_opponent_name.grid(row=1, column=0, padx=5, pady=8)
 top_left_frame.pack(side=tk.LEFT, padx=(10, 10))
@@ -96,10 +96,10 @@ round_frame = tk.Frame(middle_frame)
 lbl_round = tk.Label(round_frame, text="Round")
 lbl_round.pack()
 lbl_your_choice = tk.Label(
-    round_frame, text="´ç½ÅÀÇ ¼±ÅÃ: " + "None", font="Helvetica 13 bold"
+    round_frame, text="ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + "None", font="Helvetica 13 bold"
 )
 lbl_your_choice.pack()
-lbl_opponent_choice = tk.Label(round_frame, text="»ó´ë¹æ ¼±ÅÃ: " + "None")
+lbl_opponent_choice = tk.Label(round_frame, text="ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + "None")
 lbl_opponent_choice.pack()
 lbl_result = tk.Label(
     round_frame, text=" ", foreground="blue", font="Helvetica 14 bold"
@@ -130,21 +130,21 @@ photo_scissors = PhotoImage(file="image/scissors.gif")
 
 btn_rock = tk.Button(
     button_frame,
-    text="ÁÖ¸Ô",
+    text="ï¿½Ö¸ï¿½",
     command=lambda: choice("rock"),
     state=tk.DISABLED,
     image=photo_rock,
 )
 btn_paper = tk.Button(
     button_frame,
-    text="º¸",
+    text="ï¿½ï¿½",
     command=lambda: choice("paper"),
     state=tk.DISABLED,
     image=photo_paper,
 )
 btn_scissors = tk.Button(
     button_frame,
-    text="°¡À§",
+    text="ï¿½ï¿½ï¿½ï¿½",
     command=lambda: choice("scissors"),
     state=tk.DISABLED,
     image=photo_scissors,
@@ -198,11 +198,11 @@ def connect():
     global your_name
     if len(ent_name.get()) < 1:
         tk.messagebox.showerror(
-            title="ERROR!", message="¿µ¾î·Î ´Ð³×ÀÓÀ» ÀÔ·ÂÇÏ¼¼¿ä."
+            title="ERROR!", message="ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½."
         )
     else:
         your_name = ent_name.get()
-        lbl_your_name["text"] = "´ç½ÅÀÇ ´Ð³×ÀÓ: " + your_name
+        lbl_your_name["text"] = "ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½: " + your_name
         connect_to_server(your_name)
 
 
@@ -211,11 +211,11 @@ def count_down(my_timer, nothing):
     if game_round <= TOTAL_NO_OF_ROUNDS:
         game_round = game_round + 1
 
-    lbl_game_round["text"] = "Game " + str(game_round) + " round °¡ ½ÃÀÛµÇ¾ú½À´Ï´Ù."
+    lbl_game_round["text"] = "Game " + str(game_round) + " round ï¿½ï¿½ ï¿½ï¿½ï¿½ÛµÇ¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½."
 
     while my_timer > 0:
         my_timer = my_timer - 1
-        print("°ÔÀÓ Å¸ÀÌ¸Ó: " + str(my_timer))
+        print("ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½Ì¸ï¿½: " + str(my_timer))
         lbl_timer["text"] = my_timer
         sleep(1)
 
@@ -227,7 +227,7 @@ def count_down(my_timer, nothing):
 def choice(arg):
     global your_choice, client, game_round
     your_choice = arg
-    lbl_your_choice["text"] = "´ç½ÅÀÇ ¼±ÅÃ: " + your_choice
+    lbl_your_choice["text"] = "ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + your_choice
 
     if client:
         dataToSend = "Game_Round" + str(game_round) + your_choice
@@ -240,24 +240,24 @@ def connect_to_server(name):
     try:
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client.connect((HOST_ADDR, HOST_PORT))
-        client.send(name.encode())  # ¿¬°á ÈÄ ¼­¹ö¿¡°Ô ¸Þ¼¼Áö º¸³¿
+        client.send(name.encode())  # ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        # À§Á¬ ºñÈ°¼ºÈ­
+        # ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         btn_connect.config(state=tk.DISABLED)
         ent_name.config(state=tk.DISABLED)
         lbl_name.config(state=tk.DISABLED)
         enable_disable_buttons("disable")
 
-        # ¼­¹ö·ÎºÎÅÍ ¸Þ¼¼Áö¸¦ °è¼Ó ¼ö½ÅÇÏ±â À§ÇØ ½º·¹µå ½ÃÀÛ
+        # ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         threading._start_new_thread(receive_message_from_server, (client, "m"))
     except Exception as e:
         tk.messagebox.showerror(
             title="ERROR!!!",
-            message="host¿Í ¿¬°á ÇÒ ¼ö ¾ø½À´Ï´Ù. "
+            message="hostï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. "
             + HOST_ADDR
             + " on port: "
             + str(HOST_PORT)
-            + " ¿¬°á ÇÒ ¼ö ¾ø½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä. "
+            + " ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ï¿½Ù½ï¿½ ï¿½Ãµï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½. "
         )
 
 
@@ -274,63 +274,63 @@ def receive_message_from_server(sck, m):
         if from_server.startswith("welcome"):
             if from_server == "welcome1":
                 lbl_welcome["text"] = (
-                    " È¯¿µÇÕ´Ï´Ù! " + your_name + "´Ô »ó´ë¹æÀ» ±â´Ù·ÁÁÖ¼¼¿ä."
+                    " È¯ï¿½ï¿½ï¿½Õ´Ï´ï¿½! " + your_name + "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù·ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½."
                 )
             elif from_server == "welcome2":
                 lbl_welcome["text"] = (
-                    " È¯¿µÇÕ´Ï´Ù! " + your_name + "´Ô »ó´ë¹æÀ» ±â´Ù·ÁÁÖ¼¼¿ä."
+                    " È¯ï¿½ï¿½ï¿½Õ´Ï´ï¿½! " + your_name + "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù·ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½."
                 )
             lbl_line_server.pack()
 
         elif from_server.startswith("opponent_name$"):
             opponent_name = from_server.replace("opponent_name$", "")
-            lbl_opponent_name["text"] = "»ó´ë¹æ ´Ð³×ÀÓ: " + opponent_name
+            lbl_opponent_name["text"] = "ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½: " + opponent_name
             top_frame.pack()
             middle_frame.pack()
 
-            # µÎ ¸íÀÇ »ç¿ëÀÚ ¿¬°áµÇ¾î °ÔÀÓ ½ÃÀÛ ÁØºñ ¿Ï·á
+            # ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½ ï¿½Ï·ï¿½
             threading._start_new_thread(count_down, (game_timer, ""))
             lbl_welcome.config(state=tk.DISABLED)
             lbl_line_server.config(state=tk.DISABLED)
 
         elif from_server.startswith("$opponent_choice"):
-            # ¼­¹ö¿¡¼­ »ó´ë¹æ ¼±ÅÃ
+            # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             opponent_choice = from_server.replace("$opponent_choice", "")
 
-            # ´©°¡ ÀÌ°å´ÂÁö °á°ú
+            # ï¿½ï¿½ï¿½ï¿½ ï¿½Ì°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             who_wins = game_logic(your_choice, opponent_choice)
             round_result = " "
             if who_wins == "you":
                 your_score = your_score + 1
-                round_result = "ÀÌ°å½À´Ï´Ù."
+                round_result = "ï¿½Ì°ï¿½ï¿½ï¿½Ï´ï¿½."
             elif who_wins == "opponent":
                 opponent_score = opponent_score + 1
-                round_result = "Á³½À´Ï´Ù."
+                round_result = "ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½."
             else:
-                round_result = "¹«½ÂºÎ"
+                round_result = "ï¿½ï¿½ï¿½Âºï¿½"
 
-            # GUI ¾÷µ¥ÀÌÆ®
-            lbl_opponent_choice["text"] = "»ó´ë¹æÀÇ ¼±ÅÃ: " + opponent_choice
-            lbl_result["text"] = "°á°ú: " + round_result
+            # GUI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+            lbl_opponent_choice["text"] = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + opponent_choice
+            lbl_result["text"] = "ï¿½ï¿½ï¿½: " + round_result
 
-            # ¸¶Áö¸· ¶ó¿îµå °á°ú
+            # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             if game_round == TOTAL_NO_OF_ROUNDS:
                 # compute final result
                 final_result = ""
                 color = ""
 
                 if your_score > opponent_score:
-                    final_result = "(´ç½ÅÀÌ ¼±°øÀÔ´Ï´Ù!!!)"
+                    final_result = "(ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½!!!)"
                     color = "green"
                 elif your_score < opponent_score:
-                    final_result = "(´ç½ÅÀÌ ¹æ¾îÀÔ´Ï´Ù!!!)"
+                    final_result = "(ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½!!!)"
                     color = "red"
                 else:
-                    final_result = "(¹«½ÂºÎ!!!)"
+                    final_result = "(ï¿½ï¿½ï¿½Âºï¿½!!!)"
                     color = "black"
 
                 lbl_final_result["text"] = (
-                    "ÃÖÁ¾°á°ú: "
+                    "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: "
                     + str(your_score)
                     + " - "
                     + str(opponent_score)
@@ -344,7 +344,7 @@ def receive_message_from_server(sck, m):
                 your_score = 0
                 opponent_score = 0
 
-            # Å¸ÀÌ¸Ó ½ÃÀÛ
+            # Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
             threading._start_new_thread(count_down, (game_timer, ""))
 
     sck.close()
